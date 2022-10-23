@@ -1,0 +1,50 @@
+name: Development
+
+on: 
+  push:
+  workflow_call:
+
+jobs:
+  test:
+    name: Test application
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Dependencies (Optional if not using Docker)
+        run: |
+          echo "Installing dependencies..."
+          npm install
+
+      - name: Run Tests
+        run: |
+          echo "Running tests..."
+          npm run test --if-present
+
+  lint:
+    name: Code standards
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Dependencies (Optional if not using Docker)
+        run: |
+          echo "Installing dependencies..."
+          npm install
+
+      - name: Lint
+        run: |
+          echo "Linting..."
+          npm run lint --if-present
